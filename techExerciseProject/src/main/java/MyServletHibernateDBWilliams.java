@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datamodel.EmployeeWilliams;
+import datamodel.User;
 import util.UtilDBWilliams;
 
 @WebServlet("/MyServletHibernateDBWilliams")
@@ -23,8 +23,7 @@ public class MyServletHibernateDBWilliams extends HttpServlet {
       response.setContentType("text/html");
 
       // #1
-      UtilDBWilliams.createEmployees("user3", "33");
-      UtilDBWilliams.createEmployees("user4", "44");
+      UtilDBWilliams.createUser("guest", "password", "email@url.com");
       
       // #2
       retrieveDisplayData(response.getWriter());
@@ -40,15 +39,15 @@ public class MyServletHibernateDBWilliams extends HttpServlet {
             "<body bgcolor=\"#f0f0f0\">\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
-      List<EmployeeWilliams> listEmployees = UtilDBWilliams.listEmployees();
-      for (EmployeeWilliams employee : listEmployees) {
-         System.out.println("[DBG] " + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge());
+      List<User> listEmployees = UtilDBWilliams.listUsers();
+      for (User user : listEmployees) {
+         System.out.println("[DBG] " + user.getId() + ", " //
+               + user.getUsername() + ", " //
+               + user.getEmail());
 
-         out.println("<li>" + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge() + "</li>");
+         out.println("<li>" + user.getId() + ", " //
+               + user.getUsername() + ", " //
+               + user.getEmail() + "</li>");
       }
       out.println("</ul>");
       out.println("</body></html>");

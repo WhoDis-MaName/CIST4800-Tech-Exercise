@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datamodel.EmployeeWilliams;
+import datamodel.User;
 import util.Info;
 import util.UtilDBWilliams;
 
@@ -34,27 +34,27 @@ public class SimpleSearchHB extends HttpServlet implements Info {
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
 
-      List<EmployeeWilliams> listEmployees = null;
+      List<User> listUsers = null;
       if (keyword != null && !keyword.isEmpty()) {
-         listEmployees = UtilDBWilliams.listEmployees(keyword);
+         listUsers = UtilDBWilliams.listUsers(keyword);
       } else {
-         listEmployees = UtilDBWilliams.listEmployees();
+         listUsers = UtilDBWilliams.listUsers();
       }
-      display(listEmployees, out);
+      display(listUsers, out);
       out.println("</ul>");
       out.println("<a href=/" + projectName + "/" + searchWebName + ">Search Data</a> <br>");
       out.println("</body></html>");
    }
 
-   void display(List<EmployeeWilliams> listEmployees, PrintWriter out) {
-      for (EmployeeWilliams employee : listEmployees) {
-         System.out.println("[DBG] " + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge());
+   void display(List<User> listEmployees, PrintWriter out) {
+      for (User user : listEmployees) {
+         System.out.println("[DBG] " + user.getId() + ", " //
+               + user.getUsername() + ", " //
+               + user.getEmail());
 
-         out.println("<li>" + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getAge() + "</li>");
+         out.println("<li>" + user.getId() + ", " //
+               + user.getUsername() + ", " //
+               + user.getEmail() + "</li>");
       }
    }
 
