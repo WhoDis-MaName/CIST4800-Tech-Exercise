@@ -8,15 +8,17 @@ import javax.persistence.Table;
 
 /**
  * @since J2SE-1.8
- CREATE TABLE employee (
-  id INT NOT NULL AUTO_INCREMENT,    
-  name VARCHAR(30) NOT NULL,   
-  age INT NOT NULL,    
-  PRIMARY KEY (id));
+ CREATE TABLE USERS (
+	id INT NOT NULL AUTO_INCREMENT,
+	USERNAME VARCHAR(30) NOT NULL,
+	PASSWORD VARCHAR(30) NOT NULL,
+	EMAIL VARCHAR(30) NOT NULL,
+	PRIMARY KEY` (ID)
+);
  */
 @Entity
-@Table(name = "USERS")
-public class User {
+@Table(name = "Users")
+public class Users {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,17 +34,17 @@ public class User {
    @Column(name = "EMAIL")
    private String email;
 
-   public User() {
+   public Users() {
    }
 
-   public User(Integer id, String name, String password, String email) {
+   public Users(Integer id, String name, String password, String email) {
       this.id = id;
       this.userName = name;
       this.password = password;
       this.email = email;
    }
 
-   public User(String name, String password, String email) {
+   public Users(String name, String password, String email) {
 	   this.userName = name;
 	   this.password = password;
 	   this.email = email;

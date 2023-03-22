@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datamodel.User;
+import datamodel.Users;
 import util.UtilDBWilliams;
 
 @WebServlet("/MyServletHibernateDBWilliams")
@@ -40,15 +40,15 @@ public class MyServletHibernateDBWilliams extends HttpServlet {
             "<body bgcolor=\"#f0f0f0\">\n" + //
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
-      List<User> listEmployees = UtilDBWilliams.listEmployees();
-      for (User employee : listEmployees) {
-         System.out.println("[DBG] " + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getEmail());
+      List<Users> listUsers = UtilDBWilliams.listUsers();
+      for (Users user : listUsers) {
+         System.out.println("[DBG] " + user.getId() + ", " //
+               + user.getName() + ", " //
+               + user.getEmail());
 
-         out.println("<li>" + employee.getId() + ", " //
-               + employee.getName() + ", " //
-               + employee.getEmail() + "</li>");
+         out.println("<li>" + user.getId() + ", " //
+               + user.getName() + ", " //
+               + user.getEmail() + "</li>");
       }
       out.println("</ul>");
       out.println("</body></html>");

@@ -22,7 +22,7 @@ public class SimpleInsertHB extends HttpServlet implements Info {
       String userName = request.getParameter("userName").trim();
       String password = request.getParameter("password").trim();
       String email = request.getParameter("email").trim();
-      UtilDBWilliams.createEmployees(userName, password, email);
+      UtilDBWilliams.createUser(userName, password, email);
 
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();

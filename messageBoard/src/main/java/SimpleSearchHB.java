@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datamodel.User;
+import datamodel.Users;
 import util.Info;
 import util.UtilDBWilliams;
 
@@ -34,11 +34,11 @@ public class SimpleSearchHB extends HttpServlet implements Info {
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
 
-      List<User> listEmployees = null;
+      List<Users> listEmployees = null;
       if (keyword != null && !keyword.isEmpty()) {
-         listEmployees = UtilDBWilliams.listEmployees(keyword);
+         listEmployees = UtilDBWilliams.listUsers(keyword);
       } else {
-         listEmployees = UtilDBWilliams.listEmployees();
+         listEmployees = UtilDBWilliams.listUsers();
       }
       display(listEmployees, out);
       out.println("</ul>");
@@ -46,8 +46,8 @@ public class SimpleSearchHB extends HttpServlet implements Info {
       out.println("</body></html>");
    }
 
-   void display(List<User> listEmployees, PrintWriter out) {
-      for (User employee : listEmployees) {
+   void display(List<Users> listEmployees, PrintWriter out) {
+      for (Users employee : listEmployees) {
          System.out.println("[DBG] " + employee.getId() + ", " //
                + employee.getName() + ", " //
                + employee.getEmail());

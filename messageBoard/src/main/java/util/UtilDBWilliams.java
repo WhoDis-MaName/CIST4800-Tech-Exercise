@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import datamodel.User;
+import datamodel.*;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -32,18 +32,18 @@ public class UtilDBWilliams {
       return sessionFactory;
    }
 
-   public static List<User> listEmployees() {
-      List<User> resultList = new ArrayList<User>();
+   public static List<Users> listUsers() {
+      List<Users> resultList = new ArrayList<Users>();
 
       Session session = getSessionFactory().openSession();
       Transaction tx = null;
 
       try {
          tx = session.beginTransaction();
-         List<?> employees = session.createQuery("FROM USERS").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            User employee = (User) iterator.next();
-            resultList.add(employee);
+         List<?> users = session.createQuery("FROM Users").list();
+         for (Iterator<?> iterator = users.iterator(); iterator.hasNext();) {
+            Users user = (Users) iterator.next();
+            resultList.add(user);
          }
          tx.commit();
       } catch (HibernateException e) {
@@ -56,19 +56,19 @@ public class UtilDBWilliams {
       return resultList;
    }
 
-   public static List<User> listEmployees(String keyword) {
-      List<User> resultList = new ArrayList<User>();
+   public static List<Users> listUsers(String keyword) {
+      List<Users> resultList = new ArrayList<Users>();
 
       Session session = getSessionFactory().openSession();
       Transaction tx = null;
 
       try {
          tx = session.beginTransaction();
-         List<?> employees = session.createQuery("FROM USERS").list();
-         for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-            User employee = (User) iterator.next();
-            if (employee.getName().startsWith(keyword)) {
-               resultList.add(employee);
+         List<?> users = session.createQuery("FROM Users").list();
+         for (Iterator<?> iterator = users.iterator(); iterator.hasNext();) {
+            Users user = (Users) iterator.next();
+            if (user.getName().contains(keyword)||user.getEmail().contains(keyword)){
+               resultList.add(user);
             }
          }
          tx.commit();
@@ -81,13 +81,38 @@ public class UtilDBWilliams {
       }
       return resultList;
    }
+   public static List<Users> listUsers(String username, String password) {
+	      List<Users> resultList = new ArrayList<Users>();
 
-   public static void createEmployees(String userName, String password, String email) {
+	      Session session = getSessionFactory().openSession();
+	      Transaction tx = null;
+
+	      try {
+	         tx = session.beginTransaction();
+	         List<?> users = session.createQuery("FROM Users").list();
+	         for (Iterator<?> iterator = users.iterator(); iterator.hasNext();) {
+	            Users user = (Users) iterator.next();
+	            if ((user.getName().equals(username)||user.getEmail().equals(username))&&user.getPassword().equals(password)) {
+	            		resultList.add(user);
+	            }
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx != null)
+	            tx.rollback();
+	         e.printStackTrace();
+	      } finally {
+	         session.close();
+	      }
+	      return resultList;
+	   }
+
+   public static void createUser(String userName, String password, String email) {
       Session session = getSessionFactory().openSession();
       Transaction tx = null;
       try {
          tx = session.beginTransaction();
-         session.save(new User(userName, password, email));
+         session.save(new Users(userName, password, email));
          tx.commit();
       } catch (HibernateException e) {
          if (tx != null)
@@ -97,4 +122,30 @@ public class UtilDBWilliams {
          session.close();
       }
    }
+   public static Messages createMessage(String userName, String message) {
+	      Session session = getSessionFactory().openSession();
+	      Transaction tx = null;
+	      Messages newMessage = null;
+	      try {
+	         tx = session.beginTransaction();
+	         List<Users> users = listUsers(userName);
+	         List<Users> resultList = new ArrayList<Users>();
+	         for (Iterator<?> iterator = users.iterator(); iterator.hasNext();) {
+	            Users user = (Users) iterator.next();
+	            if (user.getName().equals(userName)){
+	            		resultList.add(user);
+	            }
+	         }
+	         newMessage = new Messages(users.get(0).getId(), message);
+	         session.save(newMessage);
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx != null)
+	            tx.rollback();
+	         e.printStackTrace();
+	      } finally {
+	         session.close();
+	      }
+	      return newMessage;
+	   }
 }
