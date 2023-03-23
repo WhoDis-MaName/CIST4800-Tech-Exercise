@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import datamodel.Users;
 import util.Info;
 import util.UtilDBWilliams;
+import util.SessionLog;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet implements Info {
@@ -36,8 +37,9 @@ public class Login extends HttpServlet implements Info {
       out.println("<ul>");
 
       List<Users> listEmployees = null;
-      if (username != null && !username.isEmpty()) {
+      if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
          listEmployees = UtilDBWilliams.listUsers(username,password);
+         UtilDBWilliams.getSession().setUser(listEmployees.get(0));
          display(listEmployees, out);
       } else {
          //listEmployees = UtilDBWilliams.listUsers();
@@ -47,7 +49,7 @@ public class Login extends HttpServlet implements Info {
       }
       
       out.println("</ul>");
-      out.println("<a href=/" + projectName + "/" + newMessage + "?username="+ username + ">Create Message</a> <br>");
+      out.println("<a href=/" + projectName + "/" + newMessage + ">Create Message</a> <br>");
       out.println("</body></html>");
    }
 

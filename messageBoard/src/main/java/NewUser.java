@@ -11,10 +11,10 @@ import util.Info;
 import util.UtilDBWilliams;
 
 @WebServlet("/SimpleInsertHB")
-public class SimpleInsertHB extends HttpServlet implements Info {
+public class NewUser extends HttpServlet implements Info {
    private static final long serialVersionUID = 1L;
 
-   public SimpleInsertHB() {
+   public NewUser() {
       super();
    }
 
@@ -23,7 +23,6 @@ public class SimpleInsertHB extends HttpServlet implements Info {
       String password = request.getParameter("password").trim();
       String email = request.getParameter("email").trim();
       UtilDBWilliams.createUser(userName, password, email);
-
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
       String title = "Database Result";
@@ -37,7 +36,7 @@ public class SimpleInsertHB extends HttpServlet implements Info {
       out.println("<li> Name: " + userName);
       out.println("<li> Email: " + email);
       out.println("</ul>");
-      out.println("<a href=/" + projectName + "/" + searchWebName + ">Search Data</a> <br>");
+      out.println("<a href=/" + projectName + "/" + logIn + ">Log In</a> <br>");
       out.println("</body></html>");
    }
 

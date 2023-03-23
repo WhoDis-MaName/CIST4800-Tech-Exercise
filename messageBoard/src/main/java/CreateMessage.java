@@ -20,8 +20,9 @@ public class CreateMessage extends HttpServlet implements Info {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      String userName = request.getParameter("userName").trim();
+      //String userName = request.getParameter("userName").trim();
       String text = request.getParameter("text").trim();
+      String userName = UtilDBWilliams.getSession().getCurrentUser().getName();
       Messages message = UtilDBWilliams.createMessage(userName, text);
 
       response.setContentType("text/html");

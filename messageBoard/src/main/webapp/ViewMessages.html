@@ -32,31 +32,31 @@
 	
 	<body>
 		<header>
-			<h1> Insert Data (Hibernate)</h1>
+			<h1> Search Data (Hibernate) </h1>
 		</header>
 		
 		<nav>
-			<a href="/messageBoard/simpleSearchHB.html">Search User</a> <br>
-			<a href="/messageBoard/simpleInsertHB.html">Insert User</a> <br>
+			<a href="/messageBoard/NewUser.html">Create Account</a> <br>
+			<a href="/messageBoard/LogIn.html">Log In</a> <br>
 			<a href="/messageBoard/CreateMessage.html">Create Message</a> <br>
 		</nav>
 		
 		<section>
 			<h1>User Input</h1>
 			
-			<form action="SimpleInsertHB" method="POST">
-			
-				User Name: <input type="text" name="userName"> <br />
-				Password: <input type="text" name="password"> <br />
-				Email: <input type="text" name="email"> <br />
-				
-				<input type="submit" value="Submit" />
+			<form action="SeeMessages" method="POST">	
+				<select name="options">
+					<option value="my">My Messages</option>
+					<option value="all">All Messages</option>
+					<option value="today">New Messages</option>
+				</select>			
+				<input type="submit" value="View Messages" />
 			</form>
 		
 		</section>
 		
 		<footer>
-		Copyright
+			Copyright
 		</footer>
 	</body>
 </html>
