@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datamodel.Messages;
 import datamodel.Users;
 import util.UtilDBWilliams;
 
@@ -23,8 +24,10 @@ public class MyServletHibernateDBWilliams extends HttpServlet {
       response.setContentType("text/html");
 
       // #1
-      //UtilDBWilliams.createEmployees("user3", "33");
-      //UtilDBWilliams.createEmployees("user4", "44");
+      UtilDBWilliams.createUser("userA", "password","emailA@email");
+      UtilDBWilliams.createUser("userB", "test", "emailB@email");
+      UtilDBWilliams.createMessage("userA", "I hope this works.");
+      UtilDBWilliams.createMessage("userB", "This should also work.");
       
       // #2
       retrieveDisplayData(response.getWriter());
@@ -49,6 +52,18 @@ public class MyServletHibernateDBWilliams extends HttpServlet {
          out.println("<li>" + user.getId() + ", " //
                + user.getName() + ", " //
                + user.getEmail() + "</li>");
+      }
+      out.println("</ul>");
+      out.println("<ul>");
+      List<Messages> listMessages = UtilDBWilliams.listMessages();
+      for (Messages message : listMessages) {
+         System.out.println("[DBG] " + message.getId() + ", " //
+               + message.getUser_id() + ", " //
+               + message.getText());
+
+         out.println("<li>" + message.getId() + ", " //
+                 + message.getUser_id() + ", " //
+                 + message.getText() + "</li>");
       }
       out.println("</ul>");
       out.println("</body></html>");
