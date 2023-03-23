@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import datamodel.Users;
 import util.Info;
 import util.UtilDBWilliams;
-import util.SessionLog;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet implements Info {
@@ -39,11 +38,15 @@ public class Login extends HttpServlet implements Info {
       List<Users> listEmployees = null;
       if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
          listEmployees = UtilDBWilliams.listUsers(username,password);
-         UtilDBWilliams.getSession().setUser(listEmployees.get(0));
-         display(listEmployees, out);
+         if(listEmployees.isEmpty()) {
+        	out.println("<h1>There is no user with that login.</h1> <br>");
+            out.println("<a href=/" + projectName + "/" + logIn + ">Log In</a> <br>");
+         }else {
+        	 UtilDBWilliams.getSession().setUser(listEmployees.get(0));
+        	 display(listEmployees, out);
+         }
       } else {
          //listEmployees = UtilDBWilliams.listUsers();
-         out.println("</ul>");
          out.println("<h1>There must be a username and password entered.</h1> <br>");
          out.println("<a href=/" + projectName + "/" + logIn + ">Log In</a> <br>");
       }

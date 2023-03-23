@@ -235,4 +235,31 @@ public class UtilDBWilliams {
 	      return resultList;
 	   }
    
+   public static List<Messages> listMessagesToday() {
+	      List<Messages> resultList = new ArrayList<Messages>();
+	      long millis = System.currentTimeMillis();  
+	      java.sql.Timestamp today = new java.sql.Timestamp(millis);
+	      Session session = getSessionFactory().openSession();
+	      Transaction tx = null;
+
+	      try {
+	         tx = session.beginTransaction();
+	         List<?> messages = session.createQuery("FROM Messages").list();
+	         for (Iterator<?> iterator = messages.iterator(); iterator.hasNext();) {
+	            Messages message = (Messages) iterator.next();
+	            if (message.getDate().getMonth() == today.getMonth() && message.getDate().getYear() == today.getYear() && message.getDate().getDate() == today.getDate()){
+	               resultList.add(message);
+	            }
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx != null)
+	            tx.rollback();
+	         e.printStackTrace();
+	      } finally {
+	         session.close();
+	      }
+	      return resultList;
+	   }
+   
 }

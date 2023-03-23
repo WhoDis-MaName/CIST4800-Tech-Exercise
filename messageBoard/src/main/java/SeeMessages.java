@@ -47,9 +47,13 @@ public class SeeMessages extends HttpServlet implements Info {
     	  }
       }else if(option.equals("all")) {
 		  List<Messages> listMessages = null;
-		     listMessages = UtilDBWilliams.listMessages();
-		     display(listMessages, out);
-      }
+		  listMessages = UtilDBWilliams.listMessages();
+	      display(listMessages, out);
+      }else if(option.equals("new")) {
+		  List<Messages> listMessages = null;
+	      listMessages = UtilDBWilliams.listMessagesToday();
+	      display(listMessages, out);
+   }
       
       out.println("</ul>");
       out.println("<a href=/" + projectName + "/" + searchMessage + ">New Filter</a> <br>");
