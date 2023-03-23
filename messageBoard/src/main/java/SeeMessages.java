@@ -27,7 +27,7 @@ public class SeeMessages extends HttpServlet implements Info {
 
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-      String title = "Database Result";
+      String title = "Messages";
       String docType = "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n"; //
       out.println(docType + //
             "<html>\n" + //
@@ -36,7 +36,15 @@ public class SeeMessages extends HttpServlet implements Info {
             "<h1 align=\"center\">" + title + "</h1>\n");
       out.println("<ul>");
       if(option.equals("my")) {
-    	  
+    	  Users user = UtilDBWilliams.getSession().getCurrentUser();
+    	  if(user == null) {
+    		  out.println("Log in to see your messages <br>");
+    		  out.println("<a href=/" + projectName + "/" + logIn + ">Login</a> <br>"); 
+    	  }else {
+    		 List<Messages> listMessages = null;
+ 		     listMessages = UtilDBWilliams.listMessagesByUser(user);
+ 		     display(listMessages, out);
+    	  }
       }else if(option.equals("all")) {
 		  List<Messages> listMessages = null;
 		     listMessages = UtilDBWilliams.listMessages();
@@ -44,7 +52,7 @@ public class SeeMessages extends HttpServlet implements Info {
       }
       
       out.println("</ul>");
-      out.println("<a href=/" + projectName + "/" + newMessage + ">Create Message</a> <br>");
+      out.println("<a href=/" + projectName + "/" + searchMessage + ">New Filter</a> <br>");
       out.println("</body></html>");
    }
 
@@ -56,7 +64,10 @@ public class SeeMessages extends HttpServlet implements Info {
 
          out.println("<li>" + message.getId() + ", "
                  + UtilDBWilliams.userNameById(message.getUser_id()) + ", "
-                 + message.getText() + "</li>");
+                 + message.getDate() + "</li>"
+                 + "<ul><li>"
+                 + message.getText()
+                 + "</li></ul>");
       }
    }
 

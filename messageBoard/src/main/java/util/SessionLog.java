@@ -2,7 +2,7 @@ package util;
 import datamodel.Users;
 
 public class SessionLog {
-	public Users currentUser;
+	private Users currentUser;
 	
 	public SessionLog() {
 		super();

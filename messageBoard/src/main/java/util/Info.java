@@ -6,5 +6,6 @@ public interface Info {
    public String logIn = "LogIn.html";
    public String newUser = "NewUser.html";
    public String newMessage = "CreateMessage.html";
+   public String searchMessage = "ViewMessages.html";
    public String insertWebName = "simpleInsertHB.html";
 }

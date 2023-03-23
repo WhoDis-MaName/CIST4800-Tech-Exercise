@@ -38,7 +38,7 @@ public class CreateMessage extends HttpServlet implements Info {
       out.println("<li> User: " + userName + " Time: " + message.getDate());
       out.println("<li> Message: " + text);
       out.println("</ul>");
-      out.println("<a href=/" + projectName + "/" + searchWebName + ">Search Data</a> <br>");
+      out.println("<a href=/" + projectName + "/" + searchMessage + ">View Messages</a> <br>");
       out.println("</body></html>");
    }
 

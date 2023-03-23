@@ -50,6 +50,7 @@ public class Login extends HttpServlet implements Info {
       
       out.println("</ul>");
       out.println("<a href=/" + projectName + "/" + newMessage + ">Create Message</a> <br>");
+      out.println("<a href=/" + projectName + "/" + searchMessage + ">View Message</a> <br>");
       out.println("</body></html>");
    }
 

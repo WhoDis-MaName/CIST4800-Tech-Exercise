@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import util.Info;
 import util.UtilDBWilliams;
 
-@WebServlet("/SimpleInsertHB")
+@WebServlet("/NewUser")
 public class NewUser extends HttpServlet implements Info {
    private static final long serialVersionUID = 1L;
 
